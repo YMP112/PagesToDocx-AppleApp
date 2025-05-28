@@ -12,6 +12,13 @@ How to add a new language:
 2. Inside that folder, add a file called `Localizable.strings` with the translated text.
 3. The app will automatically detect and display available languages in the language menu.
 
+ ## Installation via Homebrew
+<pre>
+  brew tap YMP112/homebrew-pagestodocx
+  brew install pages_to_docx
+</pre>
+
+
 ---
 
 # PagesToDocx היא אפליקציה פשוטה ונוחה למק להמרת קבצי Pages ל־Word (DOCX).
