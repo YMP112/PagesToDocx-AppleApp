@@ -1,0 +1,24 @@
+app_title = "PagesToDocx";
+choose_files = "Choose Pages files…";
+files_selected = "%d files selected:";
+no_files = "No files selected. Choose or drag files.";
+convert_and_save = "Convert & Save";
+convert_and_share = "Convert & Share";
+after_conversion = "Action after conversion:";
+pick_folder = "Choose Destination Folder";
+use_defaults = "Use these settings as default";
+remove_file = "Remove File";
+processing = "Processing...";
+completed_percent = "%d%% completed";
+summary_title = "Summary";
+success_files = "%d files converted successfully";
+failed_files = "%d files failed";
+total_files = "%d total files";
+success_section = "Successfully converted files";
+failed_section = "Files failed to convert";
+show_summary = "Show Summary";
+cancel = "Cancel";
+send = "Send";
+send_files = "Send Files";
+open_target_folder = "Open Destination Folder";
+

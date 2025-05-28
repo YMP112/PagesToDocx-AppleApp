@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct PagesToDocxApp: App {
+    @StateObject private var appState = AppState()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FileSelectionView(appState: appState)
         }
     }
 }

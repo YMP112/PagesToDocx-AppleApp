@@ -1,0 +1,117 @@
+import SwiftUI
+import AppKit
+
+struct DestinationSettingsView: View {
+    @ObservedObject var appState: AppState
+    @Environment(\.dismiss) private var dismiss
+
+    @StateObject private var converter = PagesConverter()
+
+    @State private var didDismiss       = false
+    @State private var showFolderPicker = false
+    @State private var showProgress     = false
+    @State private var showSummary      = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            // כותרת והגדרות
+            Text("הגדרות יעד להמרה").font(.title2).bold().padding(.top)
+
+            Picker("פעולה לאחר ההמרה", selection: $appState.destinationAction) {
+                Text("שמור בתיקייה").tag(AppState.DestinationAction.save)
+                Text("שלח אחרי המרה (ללא שמירה)").tag(AppState.DestinationAction.share)
+            }
+            .pickerStyle(.radioGroup)
+            .padding(.bottom, 4)
+
+            if appState.destinationAction == .save {
+                HStack {
+                    Button("בחר תיקיית יעד") { showFolderPicker = true }
+                    if let f = appState.targetFolder {
+                        Text(f.path).lineLimit(1).truncationMode(.middle)
+                    }
+                }
+            }
+
+            Toggle("השתמש באותן הגדרות כברירת-מחדל", isOn: $appState.rememberDefaults)
+
+            // כפתור המרה
+            HStack {
+                Spacer()
+                Button("התחל המרה") {
+                    let viewForShare = NSApplication.shared.keyWindow?.contentView
+                    converter.convert(appState.selectedFiles,
+                                      saveTo: appState.targetFolder,
+                                      share: appState.destinationAction == .share,
+                                      shareFromView: viewForShare)
+                    showProgress = true
+                }
+                .disabled(appState.destinationAction == .save && appState.targetFolder == nil)
+            }
+        }
+        .padding()
+
+        // בוחר תיקייה
+        .fileImporter(isPresented: $showFolderPicker,
+                      allowedContentTypes: [.folder],
+                      allowsMultipleSelection: false) { result in
+            if case let .success(urls) = result, let folder = urls.first {
+                appState.targetFolder = folder
+            }
+        }
+        .frame(width: 420)
+
+        // Sheet התקדמות
+        .sheet(isPresented: $showProgress) {
+            VStack(spacing: 22) {
+                Text("מבצע המרה...").font(.title2).bold()
+                if let cur = converter.currentFile {
+                    Text("ממיר: \(cur.lastPathComponent)")
+                        .font(.subheadline)
+                }
+                ProgressView(value: converter.progress)
+                    .frame(width: 300)
+                    .padding(.vertical, 10)
+                Text("\(Int(converter.progress * 100))% הושלמו")
+                    .font(.caption).foregroundColor(.secondary)
+
+                if converter.progress == 1 {
+                    ProgressView("מסיים...")
+                        .padding(.top, 16)
+                        .onAppear {
+                            // מעבר אוטומטי לסיכום
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                showProgress = false
+                                showSummary  = true
+                            }
+                        }
+                } else {
+                    Button("ביטול") {
+                        showProgress = false
+                    }
+                    .buttonStyle(.bordered)
+                }
+            }
+            .padding(24)
+            .frame(width: 400)
+        }
+
+        // Sheet סיכום
+        .sheet(isPresented: $showSummary, onDismiss: {
+            // ריקון הרשימה — נשארים רק קבצים שנכשלו
+            let failedSet = Set(converter.errors.keys)
+            appState.selectedFiles.removeAll { !failedSet.contains($0) }
+            if !didDismiss {
+                dismiss()
+                didDismiss = true
+            }
+        }) {
+            ConversionSummaryView(
+                successFiles: converter.successFiles,
+                failedFiles: converter.errors,
+                targetFolder: appState.targetFolder ?? .homeDirectory,
+                shouldShare: appState.destinationAction == .share
+            )
+        }
+    }
+}

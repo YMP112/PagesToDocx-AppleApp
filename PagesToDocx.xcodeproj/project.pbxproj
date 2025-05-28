@@ -29,9 +29,33 @@
 		DF9DD5892DE61C9D0073A085 /* PagesToDocxUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PagesToDocxUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DF9DD5C42DE702960073A085 /* Exceptions for "PagesToDocx" folder in "PagesToDocx" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				DestinationSettingsView.swift.old,
+			);
+			target = DF9DD5702DE61C9C0073A085 /* PagesToDocx */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		DF9DD5C52DE702960073A085 /* Exceptions for "PagesToDocx" folder in "Compile Sources" phase from "PagesToDocx" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = DF9DD56D2DE61C9C0073A085 /* Sources */;
+			membershipExceptions = (
+				DestinationSettingsView.swift.old,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DF9DD5732DE61C9C0073A085 /* PagesToDocx */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DF9DD5C42DE702960073A085 /* Exceptions for "PagesToDocx" folder in "PagesToDocx" target */,
+				DF9DD5C52DE702960073A085 /* Exceptions for "PagesToDocx" folder in "Compile Sources" phase from "PagesToDocx" target */,
+			);
 			path = PagesToDocx;
 			sourceTree = "<group>";
 		};
@@ -43,6 +67,11 @@
 		DF9DD58C2DE61C9D0073A085 /* PagesToDocxUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PagesToDocxUITests;
+			sourceTree = "<group>";
+		};
+		DF9DD5C02DE670D80073A085 /* AppIcons */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AppIcons;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +104,7 @@
 		DF9DD5682DE61C9C0073A085 = {
 			isa = PBXGroup;
 			children = (
+				DF9DD5C02DE670D80073A085 /* AppIcons */,
 				DF9DD5732DE61C9C0073A085 /* PagesToDocx */,
 				DF9DD5822DE61C9D0073A085 /* PagesToDocxTests */,
 				DF9DD58C2DE61C9D0073A085 /* PagesToDocxUITests */,
@@ -109,6 +139,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				DF9DD5732DE61C9C0073A085 /* PagesToDocx */,
+				DF9DD5C02DE670D80073A085 /* AppIcons */,
 			);
 			name = PagesToDocx;
 			packageProductDependencies = (
@@ -192,6 +223,7 @@
 			knownRegions = (
 				en,
 				Base,
+				he,
 			);
 			mainGroup = DF9DD5682DE61C9C0073A085;
 			minimizedProjectReferenceProxies = 1;
@@ -394,6 +426,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = PagesToDocx/PagesToDocx.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -421,6 +454,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = PagesToDocx/PagesToDocx.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
